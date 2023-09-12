@@ -1,20 +1,19 @@
 ---
-- name: Set up the Lab for an ESXI Deployment in the BCL Lab
+- name: Set up AAP with all Artefacts for a Usecase in the BCL Lab
   gather_facts: false
   hosts:
-  - localhost
+    - localhost
 
   tasks:
     - name: Setup local Inventory
       ansible.builtin.include_role:
         name: portfoliossa.bcl.cmdline_inventory
       vars:
-        inventory_hosts: "{{  (lookup('ansible.builtin.vars', item + '_inventory')).hosts }}"
-        inventory_groups: "{{  (lookup('ansible.builtin.vars', item + '_inventory')).groups }}"
-      loop:
-        - bcl
+        inventory_hosts: "{{ (lookup('ansible.builtin.vars', item + '_inventory')).hosts }}"
+        inventory_groups: "{{ (lookup('ansible.builtin.vars', item + '_inventory')).groups }}"
+      loop: "{{ inventories2create }}"
 
-    - name: Setup Organization 
+    - name: Setup Organization
       ansible.builtin.include_role:
         name: portfoliossa.bcl.controller_organization
       vars:
@@ -23,7 +22,7 @@
         # controller_password: "{{ controller_password }}"
 
         name: "{{ organization_name }}"
-        galaxy_credentials: "{{ organization_repository_credentials | default (omit) }}"
+        galaxy_credentials: "{{ organization_repository_credentials | default(omit) }}"
 
     - name: Setup Execution Environment
       ansible.builtin.include_role:
@@ -33,15 +32,14 @@
         # controller_username: "{{ controller_username }}"
         # controller_password: "{{ controller_password }}"
 
-        ee_name: "{{  (lookup('ansible.builtin.vars', item + '_ee')).name }}"
-        ee_description: "{{  (lookup('ansible.builtin.vars', item + '_ee')).description | default(omit) }}"
-        ee_organization: "{{  (lookup('ansible.builtin.vars', item + '_ee')).organization }}"
+        ee_name: "{{ (lookup('ansible.builtin.vars', item + '_ee')).name }}"
+        ee_description: "{{ (lookup('ansible.builtin.vars', item + '_ee')).description | default(omit) }}"
+        ee_organization: "{{ (lookup('ansible.builtin.vars', item + '_ee')).organization }}"
         state: present
-        ee_image: "{{  (lookup('ansible.builtin.vars', item + '_ee')).image }}"
-        ee_credential: "{{  (lookup('ansible.builtin.vars', item + '_ee')).credential | default(omit) }}"
-        ee_pull: "{{  (lookup('ansible.builtin.vars', item + '_ee')).pull | default ('missing', true)  }}"
-      loop:
-        - bclov
+        ee_image: "{{ (lookup('ansible.builtin.vars', item + '_ee')).image }}"
+        ee_credential: "{{ (lookup('ansible.builtin.vars', item + '_ee')).credential | default(omit) }}"
+        ee_pull: "{{ (lookup('ansible.builtin.vars', item + '_ee')).pull | default('missing', true) }}"
+      loop: "{{ ees2create }}"
 
     - name: Setup Credentials Types
       ansible.builtin.include_role:
@@ -51,16 +49,13 @@
         # controller_username: "{{ controller_username }}"
         # controller_password: "{{ controller_password }}"
 
-        credentialtype_name: "{{  (lookup('ansible.builtin.vars', item + '_credential_type')).name }}"
-        credentialtype_description: "{{  (lookup('ansible.builtin.vars', item + '_credential_type')).description }}"
-        credentialtype_inputs: "{{  (lookup('ansible.builtin.vars', item + '_credential_type')).inputs }}"
-        credentialtype_injectors: "{{  (lookup('ansible.builtin.vars', item + '_credential_type')).injectors }}"
-      loop:
-        - oneview
-        - ilo
-        - esxi
+        credentialtype_name: "{{ (lookup('ansible.builtin.vars', item + '_credential_type')).name }}"
+        credentialtype_description: "{{ (lookup('ansible.builtin.vars', item + '_credential_type')).description }}"
+        credentialtype_inputs: "{{ (lookup('ansible.builtin.vars', item + '_credential_type')).inputs }}"
+        credentialtype_injectors: "{{ (lookup('ansible.builtin.vars', item + '_credential_type')).injectors }}"
+      loop: "{{ credtypes2create }}"
 
-    - name: Add Credentials 
+    - name: Add Credentials
       ansible.builtin.include_role:
         name: portfoliossa.bcl.controller_credential
       vars:
@@ -68,17 +63,12 @@
         # controller_username: "{{ controller_username }}"
         # controller_password: "{{ controller_password }}"
 
-        credential_name: "{{  (lookup('ansible.builtin.vars', item + '_credential')).name }}"
-        credential_description: "{{  (lookup('ansible.builtin.vars', item + '_credential')).description }}"
-        credential_organization: "{{  (lookup('ansible.builtin.vars', item + '_credential')).organization }}"
-        credential_type: "{{  (lookup('ansible.builtin.vars', item + '_credential')).type }}"
-        credential_inputs: "{{  (lookup('ansible.builtin.vars', item + '_credential')).inputs }}"
-      loop:
-        - oneview
-        - ilo
-        - esxi
-        - vcenter
-        - bastion
+        credential_name: "{{ (lookup('ansible.builtin.vars', item + '_credential')).name }}"
+        credential_description: "{{ (lookup('ansible.builtin.vars', item + '_credential')).description }}"
+        credential_organization: "{{ (lookup('ansible.builtin.vars', item + '_credential')).organization }}"
+        credential_type: "{{ (lookup('ansible.builtin.vars', item + '_credential')).type }}"
+        credential_inputs: "{{ (lookup('ansible.builtin.vars', item + '_credential')).inputs }}"
+      loop: "{{ credentials2create }}"
 
     - name: Create Projects
       ansible.builtin.include_role:
@@ -88,23 +78,22 @@
         # controller_username: "{{ controller_username }}"
         # controller_password: "{{ controller_password }}"
 
-        project_name: "{{  (lookup('ansible.builtin.vars', item + '_project')).name }}"
-        project_description: "{{  (lookup('ansible.builtin.vars', item + '_project')).description }}"
-        project_organization: "{{  (lookup('ansible.builtin.vars', item + '_project')).organization }}"
-        project_scm_type: "{{  (lookup('ansible.builtin.vars', item + '_project')).scm_type }}"
-        project_scm_url: "{{  (lookup('ansible.builtin.vars', item + '_project')).scm_url }}"
+        project_name: "{{ (lookup('ansible.builtin.vars', item + '_project')).name }}"
+        project_description: "{{ (lookup('ansible.builtin.vars', item + '_project')).description }}"
+        project_organization: "{{ (lookup('ansible.builtin.vars', item + '_project')).organization }}"
+        project_scm_type: "{{ (lookup('ansible.builtin.vars', item + '_project')).scm_type }}"
+        project_scm_url: "{{ (lookup('ansible.builtin.vars', item + '_project')).scm_url }}"
         project_scm_credential: "{{ (lookup('ansible.builtin.vars', item + '_project')).scm_credential | default(omit) }}"
-        project_ee_name: "{{  (lookup('ansible.builtin.vars', item + '_project')).ee_name  | default (omit) }}"
-        # project_scm_branch: "{{ (lookup('ansible.builtin.vars', item + '_project')).scm_branch       | default (omit) }}"
-        # project_scm_clean:  "{{ (lookup('ansible.builtin.vars', item + '_project')).scm_clean        | default (true, true) }}"
-        # project_scm_delete_on_update: "{{ (lookup('ansible.builtin.vars', item + '_project')).scm_delete_on_update | default (false, true) }}"
-        # project_scm_refspec: "{{ (lookup('ansible.builtin.vars', item + '_project')).refspec         | default (omit) }}"
-        # project_scm_track_submodules: "{{ (lookup('ansible.builtin.vars', item + '_project')).scm_track_submodules | default (false, true) }}"
-        # project_scm_upodate_cache_timeout: "{{ (lookup('ansible.builtin.vars', item + '_project')).upodate_cache_timeout  | default (omit) }}"
-        # project_scm_update_on_launch: "{{ (lookup('ansible.builtin.vars', item + '_project')).scm_update_on_launch | default (false, true) }}"
-        # project_update_project: "{{ (lookup('ansible.builtin.vars', item + '_project')).update_project | default (false, true) }}"
-      loop:
-        - bcl
+        project_ee_name: "{{ (lookup('ansible.builtin.vars', item + '_project')).ee_name | default(omit) }}"
+        # project_scm_branch: "{{ (lookup('ansible.builtin.vars', item + '_project')).scm_branch       | default(omit) }}"
+        # project_scm_clean:  "{{ (lookup('ansible.builtin.vars', item + '_project')).scm_clean        | default(true, true) }}"
+        # project_scm_delete_on_update: "{{ (lookup('ansible.builtin.vars', item + '_project')).scm_delete_on_update | default(false, true) }}"
+        # project_scm_refspec: "{{ (lookup('ansible.builtin.vars', item + '_project')).refspec         | default(omit) }}"
+        # project_scm_track_submodules: "{{ (lookup('ansible.builtin.vars', item + '_project')).scm_track_submodules | default(false, true) }}"
+        # project_scm_upodate_cache_timeout: "{{ (lookup('ansible.builtin.vars', item + '_project')).upodate_cache_timeout  | default(omit) }}"
+        # project_scm_update_on_launch: "{{ (lookup('ansible.builtin.vars', item + '_project')).scm_update_on_launch | default(false, true) }}"
+        # project_update_project: "{{ (lookup('ansible.builtin.vars', item + '_project')).update_project | default(false, true) }}"
+      loop: "{{ projects2create }}"
 
     - name: Create static Inventory
       ansible.builtin.include_role:
@@ -114,13 +103,12 @@
         # controller_username: "{{ controller_username }}"
         # controller_password: "{{ controller_password }}"
 
-        inventory_name: "{{  (lookup('ansible.builtin.vars', item + '_inventory')).name }}"
-        inventory_description: "{{  (lookup('ansible.builtin.vars', item + '_inventory')).description }}"
-        inventory_organization: "{{  (lookup('ansible.builtin.vars', item + '_inventory')).organization }}"
-        inventory_hosts: "{{  (lookup('ansible.builtin.vars', item + '_inventory')).hosts }}"
-        inventory_groups: "{{  (lookup('ansible.builtin.vars', item + '_inventory')).groups }}"
-      loop:
-        - bcl
+        inventory_name: "{{ (lookup('ansible.builtin.vars', item + '_inventory')).name }}"
+        inventory_description: "{{ (lookup('ansible.builtin.vars', item + '_inventory')).description }}"
+        inventory_organization: "{{ (lookup('ansible.builtin.vars', item + '_inventory')).organization }}"
+        inventory_hosts: "{{ (lookup('ansible.builtin.vars', item + '_inventory')).hosts }}"
+        inventory_groups: "{{ (lookup('ansible.builtin.vars', item + '_inventory')).groups }}"
+      loop: "{{ inventories2create }}"
 
     - name: Create Workflows Template
       ansible.builtin.include_role:
@@ -130,14 +118,12 @@
         # controller_username: "{{ controller_username }}"
         # controller_password: "{{ controller_password }}"
 
-        workflowtemplate_name: "{{  (lookup('ansible.builtin.vars', item + '_workflowtemplate')).name }}"
-        workflowtemplate_description: "{{  (lookup('ansible.builtin.vars', item + '_workflowtemplate')).description | default(omit) }}"
-        workflowtemplate_organization: "{{  (lookup('ansible.builtin.vars', item + '_workflowtemplate')).organization }}"
-        workflowtemplate_inventory: "{{  (lookup('ansible.builtin.vars', item + '_workflowtemplate')).inventory }}"
-        workflowtemplate_extravars: "{{  (lookup('ansible.builtin.vars', item + '_workflowtemplate')).extravars | default(omit) }}"
-      loop:
-        - uc1deploy
-        - uc1undeploy
+        workflowtemplate_name: "{{ (lookup('ansible.builtin.vars', item + '_workflowtemplate')).name }}"
+        workflowtemplate_description: "{{ (lookup('ansible.builtin.vars', item + '_workflowtemplate')).description | default(omit) }}"
+        workflowtemplate_organization: "{{ (lookup('ansible.builtin.vars', item + '_workflowtemplate')).organization }}"
+        workflowtemplate_inventory: "{{ (lookup('ansible.builtin.vars', item + '_workflowtemplate')).inventory }}"
+        workflowtemplate_extravars: "{{ (lookup('ansible.builtin.vars', item + '_workflowtemplate')).extravars | default(omit) }}"
+      loop: "{{ workflows2create }}"
 
       # need to set up last jobtemplate first
     - name: Create Job Templates
@@ -147,7 +133,5 @@
         # controller_host: "{{ controller_host }}"
         # controller_username: "{{ controller_username }}"
         # controller_password: "{{ controller_password }}"
-        jobtemplates:         "{{ (lookup('ansible.builtin.vars', item + '_jobtemplates')) }}"
-      loop:
-        - uc1deploy
-        - uc1undeploy
+        jobtemplates: "{{ (lookup('ansible.builtin.vars', item + '_jobtemplates')) }}"
+      loop: "{{ workflows2create }}"
