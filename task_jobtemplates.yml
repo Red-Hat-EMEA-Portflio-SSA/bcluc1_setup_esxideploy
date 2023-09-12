@@ -1,13 +1,13 @@
 - name: DEBUG jobtemplates
   ansible.builtin.debug:
-    msg: | 
-      "{{ jobtemplates }}"
+    msg: |
+      "{{ jobtemplates }}"
 
 - name: DEBUG inner_item
   ansible.builtin.debug:
     msg: "inner_item: {{ inner_item }}"
   loop:
-    "{{ jobtemplates }}"
+    "{{ jobtemplates }}"
   loop_control:
     index_var: inner_item
 
@@ -15,17 +15,17 @@
   ansible.builtin.debug:
     msg: "item: {{ item }}"
   loop:
-    "{{ jobtemplates }}"
+    "{{ jobtemplates }}"
   loop_control:
     index_var: inner_item
 
 - name: DEBUG both items
   ansible.builtin.debug:
-    msg: | 
+    msg: |
       - "item: {{ item }}"
       - "inner_item: {{ inner_item }}"
   loop:
-    "{{ jobtemplates }}"
+    "{{ jobtemplates }}"
   loop_control:
     index_var: inner_item
 
@@ -33,7 +33,7 @@
   ansible.builtin.debug:
     msg: "jobtemplate_name: {{ item.name }}"
   loop:
-    "{{ jobtemplates }}"
+    "{{ jobtemplates }}"
   loop_control:
     index_var: inner_item
 
@@ -57,7 +57,8 @@
     jobtemplate_ee:           "{{ item.ee_name }}"
     jobtemplate_extravars:    "{{ item.extravars | default(omit) }}"
     jobtemplate_verbosity:    "{{ item.verbosity }}"
-      
+    jobtemplate_limit:        "{{ item.limit | default(omit) }}"
+
     jobtemplate_workflow_member: "{{ item.workflow_member | default(false,true) }}"
     jobtemplate_workflow: "{{ item.workflow | default(omit) }}"
 
@@ -66,6 +67,6 @@
     jobtemplate_always_nodes: "{{ item.always_nodes | default(omit) }}"
     jobtemplate_failure_nodes: "{{ item.failure_nodes | default(omit) }}"
   loop:
-    "{{ jobtemplates }}"
+    "{{ jobtemplates }}"
   loop_control:
     index_var: inner_item
