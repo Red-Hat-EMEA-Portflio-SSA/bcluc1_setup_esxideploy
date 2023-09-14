@@ -581,6 +581,7 @@ uc2createrheltemplate_jobtemplates:
     credentials:  
       - "{{ vcenter_credential.name }}"
       - "{{ rhsm_credential.name }}"
+      - "{{ rhelvm_credential.name }}"
     become:       false
     ee_name: "{{  bclov_ee.name }}"
     # extravars:  {}
