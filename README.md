@@ -48,6 +48,8 @@ main vars to define what gets defined:
 ansible-navigator run aap_setup_usecase.yml -e @uc1_extra_vars.yml -e @bcluc1_setup_esxideploy_config/vault_vars.yml --eei bcl-ov:18
 # Setting up Use Case 2
 ansible-navigator run aap_setup_usecase.yml -e @uc2_extra_vars.yml -e @bcluc1_setup_esxideploy_config/vault_vars.yml --eei bcl-ov:18
+# Setting up Use Case 3
+ansible-navigator run aap_setup_usecase.yml -e @uc3_extra_vars.yml -e @bcluc1_setup_esxideploy_config/vault_vars.yml --eei bcl-ov:18
 
 For all 3 plays you can add:
 -e remove=true		removes the artifacts created
