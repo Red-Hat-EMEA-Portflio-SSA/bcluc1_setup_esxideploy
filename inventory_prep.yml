@@ -19,23 +19,25 @@
         ansible_python_interpreter: "{{ item.ansible_python_interpreter | default (omit) }}"
       loop: "{{ inventory_hosts }}"
 
-    - name: Add physical hosts to inventory
-      add_host:
-        name: "{{ item.name }}"
-        ansible_host: "{{ item.host_ip | default (omit)  }}"
-        ansible_connection: "{{ item.ansible_connection | default (omit) }}"
-        ilo_ip: "{{ item.ilo_ip | default (omit) }}"
-        host_bootproto: "{{ item.host_bootproto | default (omit) }}"
-        host_ip: "{{ item.host_ip | default (omit) }}"
-        host_nic: "{{ item.host_nic | default (omit) }}"
-        host_vlan: "{{ item.host_vlan | default (omit) }}"
-        host_mask: "{{ item.host_mask | default (omit) }}"
-        host_gw: "{{ item.host_gw | default (omit) }}"
-        host_nameserver: "{{ item.host_nameserver | default (omit) }}"
-        groups: 
-          - "esx_hosts"
-          - "oneview_targets"
-      loop: "{{ oneview_machines }}"
+#### FixMe
+#### this is for extra_vars of bcl_setup
+#### but we have different extra_vars for aap_setup_usecase
+##    - name: Add physical hosts to inventory
+##      add_host:
+##        name: "{{ item.name }}"
+##        ansible_host: "{{ item.host_ip | default (omit)  }}"
+##        ansible_connection: "{{ item.ansible_connection | default (omit) }}"
+##        ilo_ip: "{{ item.ilo_ip | default (omit) }}"
+##        host_bootproto: "{{ item.host_bootproto | default (omit) }}"
+##        host_ip: "{{ item.host_ip | default (omit) }}"
+##        host_nic: "{{ item.host_nic | default (omit) }}"
+##        host_vlan: "{{ item.host_vlan | default (omit) }}"
+##        host_mask: "{{ item.host_mask | default (omit) }}"
+##        host_gw: "{{ item.host_gw | default (omit) }}"
+##        host_nameserver: "{{ item.host_nameserver | default (omit) }}"
+##        groups: 
+##          - "esx_hosts"
+##      loop: "{{ oneview_machines }}"
 
     - name: Add additional Host to inventory
       add_host:
