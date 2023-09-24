@@ -182,9 +182,9 @@ vcenter_credential:
 # projects to create
 projects2create:
   - "bcl"
-bcl_project:
-  name: "BCL Project"
-  description: "BCL Project"
+uc1_project:
+  name: "BCL Project UC1"
+  description: "BCL Project for UC1"
   organization: "{{ organization_name }}"
   scm_type: "git"
   # scm_url: "git@github.com:Red-Hat-EMEA-Portflio-SSA/bcluc1_setup_esxideploy.git"
@@ -359,7 +359,7 @@ uc1deploy_jobtemplates:
     description:  "Add installed and configured ESXi server to existing VCenter"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
-    project:      "{{ bcl_project.name }}"
+    project:      "{{ uc1_project.name }}"
     playbook:     "add-esxi-to-vcenter.yml"
     credentials:  
       - "{{ vcenter_credential.name }}"
@@ -380,7 +380,7 @@ uc1deploy_jobtemplates:
     description:  "Customize installation iso and install ESXI onto bare metal server"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
-    project:      "{{ bcl_project.name }}"
+    project:      "{{ uc1_project.name }}"
     playbook:     "esxi-install.yml"
     credentials:  
       - "{{ esxi_credential.name }}"
@@ -403,7 +403,7 @@ uc1deploy_jobtemplates:
     description:  "Configure physical hosts via oneview"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
-    project:      "{{ bcl_project.name }}"
+    project:      "{{ uc1_project.name }}"
     playbook:     "oneview-config.yml"
     credentials:  
       - "{{ oneview_credential.name }}"
@@ -425,7 +425,7 @@ uc1undeploy_jobtemplates:
     description:  "run deployment job but with remove parameter set"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
-    project:      "{{ bcl_project.name }}"
+    project:      "{{ uc1_project.name }}"
     playbook:     "oneview-config.yml"
     credentials:  
       - "{{ oneview_credential.name }}"
@@ -445,7 +445,7 @@ uc1undeploy_jobtemplates:
     description:  "run deployment job but with remove parameter set"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
-    project:      "{{ bcl_project.name }}"
+    project:      "{{ uc1_project.name }}"
     playbook:     "add-esxi-to-vcenter.yml"
     credentials:  
       - "{{ vcenter_credential.name }}"

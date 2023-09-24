@@ -248,7 +248,7 @@ projects2create:
 
 uc3_project:
   name: "BCL Project UC3"
-  description: "BCL Project"
+  description: "BCL Project for UC3"
   organization: "{{ organization_name }}"
   scm_type: "git"
   scm_url: "https://github.com/Red-Hat-EMEA-Portfolio-SSA/bcluc3.git"
