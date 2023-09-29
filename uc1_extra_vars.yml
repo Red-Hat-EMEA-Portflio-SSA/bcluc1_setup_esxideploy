@@ -181,7 +181,7 @@ vcenter_credential:
 
 # projects to create
 projects2create:
-  - "bcl"
+  - "uc1"
 uc1_project:
   name: "BCL Project UC1"
   description: "BCL Project for UC1"
