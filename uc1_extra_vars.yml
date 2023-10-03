@@ -355,7 +355,7 @@ uc1undeploy_workflowtemplate:
     vcenter_hostname: "10.6.55.10"
 
 uc1deploy_jobtemplates:
-  - name:         "Add ESXi to Vcenter"
+  - name:         "uc1 Add ESXi to Vcenter"
     description:  "Add installed and configured ESXi server to existing VCenter"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -376,7 +376,7 @@ uc1deploy_jobtemplates:
     #failure_nodes: []
     #success_nodes: []
 
-  - name:         "Install ESXi"
+  - name:         "uc1 Install ESXi"
     description:  "Customize installation iso and install ESXI onto bare metal server"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -399,7 +399,7 @@ uc1deploy_jobtemplates:
     #failure_nodes: []
     #always_nodes: []
  
-  - name:         "Host Config via Oneview"
+  - name:         "uc1 Host Config via Oneview"
     description:  "Configure physical hosts via oneview"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -421,7 +421,7 @@ uc1deploy_jobtemplates:
     #always_nodes: []
  
 uc1undeploy_jobtemplates:
-  - name:         "Remove Host from Oneview"
+  - name:         "uc1 Remove Host from Oneview"
     description:  "run deployment job but with remove parameter set"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -441,7 +441,7 @@ uc1undeploy_jobtemplates:
     #failure_nodes: []
     #success_nodes: []
 
-  - name:         "Remove ESXi from Vcenter"
+  - name:         "uc1 Remove ESXi from Vcenter"
     description:  "run deployment job but with remove parameter set"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"

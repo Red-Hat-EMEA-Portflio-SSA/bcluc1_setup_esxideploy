@@ -524,7 +524,7 @@ uc2reset_workflowtemplate:
     my_content_library_name: my_library_on_datastore
 
 uc2createrheltemplate_jobtemplates:
-  - name:         "Create RHEL template"
+  - name:         "uc2 Create RHEL template"
     description:  "Create RHEL template"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -546,7 +546,7 @@ uc2createrheltemplate_jobtemplates:
     #failure_nodes: []
     #success_nodes: []
 
-  - name:         "Seal the RHEL template VM"
+  - name:         "uc2 Seal the RHEL template VM"
     description:  "Seal the RHEL template VM"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -570,7 +570,7 @@ uc2createrheltemplate_jobtemplates:
     #failure_nodes: []
     #always_nodes: []
  
-  - name:         "Install RHEL from ISO"
+  - name:         "uc2 Install RHEL from ISO"
     description:  "Install RHEL from ISO"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -593,7 +593,7 @@ uc2createrheltemplate_jobtemplates:
     #failure_nodes: []
     #always_nodes: []
 
-  - name:         "Upload RHEL custom ISO"
+  - name:         "uc2 Upload RHEL custom ISO"
     description:  "Upload RHEL custom ISO"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -616,7 +616,7 @@ uc2createrheltemplate_jobtemplates:
     #failure_nodes: []
     #always_nodes: []
 
-  - name:         "Create RHEL custom ISO"
+  - name:         "uc2 Create RHEL custom ISO"
     description:  "Create RHEL custom ISO"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -640,7 +640,7 @@ uc2createrheltemplate_jobtemplates:
     #always_nodes: []
 
 uc2createwintemplate_jobtemplates:
-  - name:         "Create Win template"
+  - name:         "uc2 Create Win template"
     description:  "Create Win template"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -663,7 +663,7 @@ uc2createwintemplate_jobtemplates:
     #failure_nodes: []
     #success_nodes: []
 
-  - name:         "Upload customized Win ISO"
+  - name:         "uc2 Upload customized Win ISO"
     description:  "Upload customized Win ISO"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -686,7 +686,7 @@ uc2createwintemplate_jobtemplates:
     #always_nodes: []
     #failure_nodes: []
 
-  - name:         "Create customized Win ISO"
+  - name:         "uc2 Create customized Win ISO"
     description:  "Create customized Win ISO"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -710,7 +710,7 @@ uc2createwintemplate_jobtemplates:
 
 
 uc2deployvms_jobtemplates:
-  - name:         "Deploy webserver on Windows VMs"
+  - name:         "uc2 Deploy webserver on Windows VMs"
     description:  "Deploy webserver on Windows VMs"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -732,7 +732,7 @@ uc2deployvms_jobtemplates:
     #failure_nodes: []
     #success_nodes: []
 
-  - name:         "Deploy webserver on RHEL VMs"
+  - name:         "uc2 Deploy webserver on RHEL VMs"
     description:  "Deploy webserver on RHEL VMs"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -756,7 +756,7 @@ uc2deployvms_jobtemplates:
     #success_nodes: []
 
 
-  - name:         "Baseconfig of RHEL VMs"
+  - name:         "uc2 Baseconfig of RHEL VMs"
     description:  "Base line configuration of RHEL VMs"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -780,7 +780,7 @@ uc2deployvms_jobtemplates:
     #always_nodes: []
     #failure_nodes: []
 
-  - name:         "Deploy VMs from Template"
+  - name:         "uc2 Deploy VMs from Template"
     description:  "Deploy RHEL or Windows VMs from respective Template"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -807,7 +807,7 @@ uc2deployvms_jobtemplates:
     #failure_nodes: []
 
 uc2reset_jobtemplates:
-  - name:         "Delete all VMs"
+  - name:         "uc2 Delete all VMs"
     description:  "Find and delete all VMs in the VCenter"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"

@@ -390,7 +390,7 @@ uc3updateesxi_workflowtemplate:
   # extravars: {}
 
 uc3firmwareupdate_jobtemplates:
-  - name:         "Check Firmware compliance via API calls"
+  - name:         "uc3 Check Firmware compliance via API calls"
     description:  "Use Oneview API to check compliance state of firmware"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -408,7 +408,7 @@ uc3firmwareupdate_jobtemplates:
     #failure_nodes: []
     #success_nodes: []
 
-  - name:         "Apply FW update via Oneview"
+  - name:         "uc3 Apply FW update via Oneview"
     description:  "Update server profile template to ensure FW update"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -427,7 +427,7 @@ uc3firmwareupdate_jobtemplates:
     #failure_nodes: []
     #success_nodes: []
   
-  - name:         "Check Firmware via Oneview"
+  - name:         "uc3 Check Firmware via Oneview"
     description:  "Print firmware versions of all components of your hardware"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -447,7 +447,7 @@ uc3firmwareupdate_jobtemplates:
     #success_nodes: []
 
 uc3updateesxi_jobtemplates:
-  - name:         "Update ESXi hosts"
+  - name:         "uc3 Update ESXi hosts"
     description:  "set in maintanance, update, reboot, one at a time" 
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
@@ -466,7 +466,7 @@ uc3updateesxi_jobtemplates:
     #success_nodes: []
 
 uc3guestsecupdate_jobtemplates:
-  - name:         "Security Updates for guest VMs"
+  - name:         "uc3 Security Updates for guest VMs"
     description:  "Install security updates to RHEL and Windows Clients"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
