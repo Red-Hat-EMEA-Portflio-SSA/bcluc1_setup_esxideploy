@@ -32,7 +32,7 @@ bclov_ee:
    organization: "{{ organization_name }}"
    image: "{{ automationhub_host }}/bcl-ov:latest"
    credential: "private automation hub registry"
-   pull: "missing"
+   pull: "always"
 
 # credential_types to create:
 credtypes2create: 
