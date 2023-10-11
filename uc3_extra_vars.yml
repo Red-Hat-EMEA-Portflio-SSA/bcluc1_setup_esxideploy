@@ -369,21 +369,21 @@ workflows2create:
   - "uc3updateesxi"
 
 uc3guestsecupdate_workflowtemplate:
-  name: "UC3 Security Updates for Guest OS"
+  name: "UC3 - Security Updates for Guest OS"
   description: "Update RHEL or Win VMs with security updates"
   organization: "{{ organization_name }}"
   inventory:    "{{ bcl_inventory.name }}"
   # extravars: {}
 
 uc3firmwareupdate_workflowtemplate:
-  name: "UC3 firmware updates"
+  name: "UC3 - firmware updates"
   description: "check firmware status, apply updates and check firmware compliance"
   organization: "{{ organization_name }}"
   inventory:    "{{ bcl_inventory.name }}"
   # extravars: {}
 
 uc3updateesxi_workflowtemplate:
-  name: "UC3 update ESXi"
+  name: "UC3 - update ESXi"
   description: "install udpdate via esxcli command and reboot"
   organization: "{{ organization_name }}"
   inventory:    "{{ bcl_inventory.name }}"

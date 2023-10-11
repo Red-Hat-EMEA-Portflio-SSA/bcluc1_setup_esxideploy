@@ -305,7 +305,7 @@ workflows2create:
   - "uc1undeploy"
   
 uc1deploy_workflowtemplate:
-  name: "UC1 deploy ESXi and add to vcenter"
+  name: "UC1 - deploy ESXi and add to vcenter"
   description: "configure server via oneview, install, configure ESXi and add to vcenter"
   organization: "{{ organization_name }}"
   inventory:    "{{ bcl_inventory.name }}"
@@ -330,7 +330,7 @@ uc1deploy_workflowtemplate:
     vcenter_hostname: "10.6.55.10"
 
 uc1undeploy_workflowtemplate:
-  name: "UC1 undeploy"
+  name: "UC1 - undeploy"
   description: "reset UC1 as prepartion for next demo"
   organization: "{{ organization_name }}"
   inventory:    "{{ bcl_inventory.name }}"

@@ -370,7 +370,7 @@ workflows2create:
   - "uc2reset"
 
 uc2createrheltemplate_workflowtemplate:
-  name: "UC2 create a RHEL VM template for use of VM mass deployments"
+  name: "UC2 - create a RHEL VM template for use of VM mass deployments"
   description: "create a vm via unattended install or kickstart install and convert to template"
   organization: "{{ organization_name }}"
   inventory:    "{{ bcl_inventory.name }}"
@@ -415,7 +415,7 @@ uc2createrheltemplate_workflowtemplate:
         my_template_disk_capacity_gb: 50
 
 uc2createwintemplate_workflowtemplate:
-  name: "UC2 create a Win VM template for use of VM mass deployments"
+  name: "UC2 - create a Win VM template for use of VM mass deployments"
   description: "create a vm via unattended install or kickstart install and convert to template"
   organization: "{{ organization_name }}"
   inventory:    "{{ bcl_inventory.name }}"
@@ -460,7 +460,7 @@ uc2createwintemplate_workflowtemplate:
         my_template_disk_capacity_gb: 50
 
 uc2deployvms_workflowtemplate:
-  name: "UC2 deploy VMs from templates"
+  name: "UC2 - deploy VMs from templates"
   description: "use RHEL VM template or Win VM template to deploy VMs"
   organization: "{{ organization_name }}"
   inventory:    "{{ bcl_inventory.name }}"
@@ -505,7 +505,7 @@ uc2deployvms_workflowtemplate:
         my_template_disk_capacity_gb: 50
 
 uc2reset_workflowtemplate:
-  name: "UC2 reset to initial state"
+  name: "UC2 - reset to initial state"
   description: "Deletes all VMs in the VCenter"
   organization: "{{ organization_name }}"
   inventory:    "{{ bcl_inventory.name }}"
