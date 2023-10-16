@@ -351,6 +351,7 @@ bcl_inventory:
       oneview_host: "10.6.55.9"
       groups:
         - "uc1_targets"
+        - "uc3_targets"
     - name:  "vcenter"
       host_ip: '10.6.55.10'
       groups: []
@@ -361,6 +362,7 @@ bcl_inventory:
     - "rhel"
     - "esx_hosts"
     - "uc1_targets"
+    - "uc3_targets"
 
 # workflow templates to create
 workflows2create:
