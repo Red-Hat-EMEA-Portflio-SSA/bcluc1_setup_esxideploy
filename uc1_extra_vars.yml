@@ -163,8 +163,8 @@ ilo_credential:
 esxi_credential:
   name: "ESXi Credential"
   description: "ESXi Credential"
-  type: "{{ esxi_credential_type.name }}"
-  organization: "{{ organization_name }}"
+  type: "{{ esxi_credential_type.name }}"
+  organization: "{{ organization_name }}"
   inputs:
     username: "root"
     password: "{{ vault_esxi_rootpw }}"
@@ -173,7 +173,7 @@ vcenter_credential:
   name: "BCL VCenter"
   description: "BCL VCenter Credential"
   type: "VMware vCenter"
-  organization: "{{ organization_name }}"
+  organization: "{{ organization_name }}"
   inputs: 
     host: "10.6.55.10"
     username: "{{ vault_vcenter_username }}"
@@ -189,8 +189,8 @@ uc1_project:
   scm_type: "git"
   # scm_url: "git@github.com:Red-Hat-EMEA-Portflio-SSA/bcluc1_setup_esxideploy.git"
   scm_url: "https://github.com/Red-Hat-EMEA-Portfolio-SSA/bcluc1_esxideploy.git"
-  #scm_credential: "{{  vault_githubtoken }}"
-  ee_name: "{{  bclov_ee.name }}"
+  #scm_credential: "{{ vault_githubtoken }}"
+  ee_name: "{{ bclov_ee.name }}"
 
   # scm_branch: ""
   # scm_clean: true
@@ -212,7 +212,7 @@ bcl_inventory:
     - name: localhost
       # see: https://docs.ansible.com/ansible/latest/inventory/implicit_localhost.html
       ansible_connection: local
-      ansible_python_interpreter: "{{ansible_playbook_python}}"
+      ansible_python_interpreter: "{{ ansible_playbook_python }}"
       groups: []
     - name: bastion_host 
       host_ip: "10.6.55.4"
@@ -365,7 +365,7 @@ uc1deploy_jobtemplates:
       - "{{ vcenter_credential.name }}"
       - "{{ esxi_credential.name }}"
     become:       false
-    ee_name: "{{  bclov_ee.name }}"
+    ee_name: "{{ bclov_ee.name }}"
     # extravars:  {}
     verbosity:    0
 
@@ -388,7 +388,7 @@ uc1deploy_jobtemplates:
       - "{{ oneview_credential.name }}"
       - "{{ ilo_credential.name }}"
     become:       true
-    ee_name: "{{  bclov_ee.name }}"
+    ee_name: "{{ bclov_ee.name }}"
     # extravars:  {}
     verbosity:    0
     workflow_member: true
@@ -409,7 +409,7 @@ uc1deploy_jobtemplates:
       - "{{ oneview_credential.name }}"
       - "{{ ilo_credential.name }}"
     become:       true
-    ee_name: "{{  bclov_ee.name }}"
+    ee_name: "{{ bclov_ee.name }}"
     # extravars:  {}
     verbosity:    0
     workflow_member: true
@@ -430,7 +430,7 @@ uc1undeploy_jobtemplates:
     credentials:  
       - "{{ oneview_credential.name }}"
     become:       true
-    ee_name: "{{  bclov_ee.name }}"
+    ee_name: "{{ bclov_ee.name }}"
     extravars: 
       remove: true
     verbosity:    0
@@ -451,7 +451,7 @@ uc1undeploy_jobtemplates:
       - "{{ vcenter_credential.name }}"
       - "{{ esxi_credential.name }}"
     become:       false
-    ee_name: "{{  bclov_ee.name }}"
+    ee_name: "{{ bclov_ee.name }}"
     extravars: 
       remove: true
     verbosity:    0
