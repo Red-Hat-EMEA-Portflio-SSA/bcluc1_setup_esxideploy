@@ -415,7 +415,7 @@ uc3firmwareupdate_jobtemplates:
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
     project:      "{{ uc3_project.name }}"
-    playbook:     "1a_oneview_check_firmware.yml"
+    playbook:     "1b_oneview_apply_spp.yml"
     credentials:  
       - "{{ oneview_credential.name }}"
     become: true
@@ -457,6 +457,7 @@ uc3updateesxi_jobtemplates:
     playbook:     "2_update_esxi.yml"
     credentials:  
       - "{{ vcenter_credential.name }}"
+      - "{{ esxi_credential }}"
     become: true
     ee_name: "{{ bclov_ee.name }}"
     verbosity:    0
