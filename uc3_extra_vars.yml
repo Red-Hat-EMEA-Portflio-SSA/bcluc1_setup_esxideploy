@@ -468,20 +468,40 @@ uc3updateesxi_jobtemplates:
     #success_nodes: []
 
 uc3guestsecupdate_jobtemplates:
-  - name:         "uc3 Security Updates for guest VMs"
+  - name:         "uc3 Security Updates for RHEL guest VMs"
     description:  "Install security updates to RHEL and Windows Clients"
     organization: "{{ organization_name }}"
     inventory:    "{{ bcl_inventory.name }}"
     project:      "{{ uc3_project.name }}"
     playbook:     "3_guest_security_updates.yml"
+    limit: "rhel9_64Guest"
     credentials:  
-      - "{{ vcenter_credential.name }}"
+      - "{{ rhelvm_credential.name }}"
     become: true
     ee_name: "{{ bclov_ee.name }}"
     verbosity:    0
     workflow_member: true
     workflow: "{{ uc3guestsecupdate_workflowtemplate.name }}"
-    identifier: "update_esxi"
+    identifier: "update_rhelvms"
+    #always_nodes: []
+    #failure_nodes: []
+    #success_nodes: []
+
+  - name:         "uc3 Security Updates for WIN guest VMs"
+    description:  "Install security updates to RHEL and Windows Clients"
+    organization: "{{ organization_name }}"
+    inventory:    "{{ bcl_inventory.name }}"
+    project:      "{{ uc3_project.name }}"
+    playbook:     "3_guest_security_updates.yml"
+    limit: "windows2019srv_64Guest"
+    credentials:  
+      - "{{ winvm_credential.name }}"
+    become: false
+    ee_name: "{{ bclov_ee.name }}"
+    verbosity:    0
+    workflow_member: true
+    workflow: "{{ uc3guestsecupdate_workflowtemplate.name }}"
+    identifier: "update_winvms"
     #always_nodes: []
     #failure_nodes: []
     #success_nodes: []
