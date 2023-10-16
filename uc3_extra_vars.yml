@@ -151,12 +151,13 @@ credentials2create:
   - winvm
   - rhelvm
   - rhsm
+  - esximachine
 
 controller_credential:
   name: "Login to AAP Controler itself"
   description: "login to AAP Controller via API"
   type: "Red Hat Ansible Automation Platform"
-  organization: "{{ organization_name }}"
+  organization: "{{ organization_name }}"
   inputs:
     host: "{{ vault_controller_controller }}"
     username: "{{ vault_controller_username }}"
@@ -168,7 +169,7 @@ bastion_credential:
   name: "Login to Bastion Host"
   description: "login to bastion host via ssh"
   type: "Machine"
-  organization: "{{ organization_name }}"
+  organization: "{{ organization_name }}"
   inputs:
     username: "{{ vault_bastion_username }}"
     password: "{{ vault_bastion_password   | default(omit) }}"
@@ -177,8 +178,8 @@ bastion_credential:
 oneview_credential:
   name: "HPE Oneview Credential"
   description: "HPE Oneview SDK Credential"
-  type: "{{ oneview_credential_type.name }}"
-  organization: "{{ organization_name }}"
+  type: "{{ oneview_credential_type.name }}"
+  organization: "{{ organization_name }}"
   inputs:
     username: "{{ vault_oneview_username }}"
     password: "{{ vault_oneview_password }}"
@@ -188,8 +189,8 @@ oneview_credential:
 ilo_credential:
   name: "HPE ILO Credential"
   description: "HPE ILO SDK Credential"
-  type: "{{ ilo_credential_type.name }}"
-  organization: "{{ organization_name }}"
+  type: "{{ ilo_credential_type.name }}"
+  organization: "{{ organization_name }}"
   inputs: 
     username: "{{ vault_ilo_username }}"
     password: "{{ vault_ilo_password }}"
@@ -197,17 +198,28 @@ ilo_credential:
 esxi_credential:
   name: "ESXi Credential"
   description: "ESXi Credential"
-  type: "{{ esxi_credential_type.name }}"
-  organization: "{{ organization_name }}"
+  type: "{{ esxi_credential_type.name }}"
+  organization: "{{ organization_name }}"
   inputs:
     username: "root"
     password: "{{ vault_esxi_rootpw }}"
+
+esximachine_credential:
+  name: "ESXi Machine Credential"
+  description: "ESXi Machine Credential"
+  type: "Machine"
+  organization: "{{ organization_name }}"
+  inputs:
+    username: "root"
+    password: "{{ vault_esxi_rootpw }}"
+    ssh_key_data: "{{ vault_esxi_sshkey | default(omit) }}"
+    become_password: "{{ vault_esxi_becomepassword | default(omit) }}"
 
 vcenter_credential:
   name: "BCL VCenter"
   description: "BCL VCenter Credential"
   type: "VMware vCenter"
-  organization: "{{ organization_name }}"
+  organization: "{{ organization_name }}"
   inputs: 
     host: "10.6.55.10"
     username: "{{ vault_vcenter_username }}"
@@ -404,7 +416,11 @@ uc3updateesxi_workflowtemplate:
   description: "install udpdate via esxcli command and reboot"
   organization: "{{ organization_name }}"
   inventory:    "{{ bcl_inventory.name }}"
-  # extravars: {}
+  extravars: 
+    my_vmware_datacenter_name: bcl
+    my_vmware_cluster_name: bcl-cluster
+    #my_esxi_package: "ESXi-7.0U2a-17867351-standard"
+    my_esxi_package: "ESXi-7.0U3n-21930508-standard"
 
 uc3firmwareupdate_jobtemplates:
   - name:         "uc3 Check Firmware compliance via API calls"
@@ -472,7 +488,7 @@ uc3updateesxi_jobtemplates:
     playbook:     "2_update_esxi.yml"
     credentials:  
       - "{{ vcenter_credential.name }}"
-      - "{{ esxi_credential.name }}"
+      - "{{ esximachine_credential.name }}"
     become: true
     ee_name: "{{ bclov_ee.name }}"
     verbosity:    0
