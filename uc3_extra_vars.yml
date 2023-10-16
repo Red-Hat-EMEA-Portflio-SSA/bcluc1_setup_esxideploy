@@ -457,7 +457,7 @@ uc3updateesxi_jobtemplates:
     playbook:     "2_update_esxi.yml"
     credentials:  
       - "{{ vcenter_credential.name }}"
-      - "{{ esxi_credential }}"
+      - "{{ esxi_credential.name }}"
     become: true
     ee_name: "{{ bclov_ee.name }}"
     verbosity:    0
