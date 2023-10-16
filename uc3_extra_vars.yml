@@ -307,6 +307,9 @@ bcl_inventory:
       oneview_host: "10.6.55.9"
       groups:
         - "esx_hosts"
+      ov_hardware: "rh-bctl-1-gen9.hpintelco.org"
+      ov_hostname: "rh-bctl-1-gen9"
+      server_hardware_type_name: "DL380 Gen9"
     - name: rh-bctl-2-gen9
       ilo_ip:  "10.6.55.202"
       host_ip: "10.6.54.202"
@@ -318,6 +321,9 @@ bcl_inventory:
       oneview_host: "10.6.55.9"
       groups:
         - "esx_hosts"
+      ov_hardware: "rh-bctl-2-gen9.hpintelco.org"
+      ov_hostname: "rh-bctl-2-gen9"
+      server_hardware_type_name: "DL380 Gen9"
     - name: rh-bctl-3-gen9
       ilo_ip:  "10.6.55.203"
       host_ip: "10.6.54.203"
@@ -329,6 +335,9 @@ bcl_inventory:
       oneview_host: "10.6.55.9"
       groups:
         - "esx_hosts"
+      ov_hardware: "rh-bctl-3-gen9.hpintelco.org"
+      ov_hostname: "rh-bctl-3-gen9"
+      server_hardware_type_name: "DL380 Gen9"
 #    - name: rh-bctl-4-gen9
 #      ilo_ip:  "10.6.55.204"
 #      host_ip: "10.6.54.204"
@@ -340,6 +349,9 @@ bcl_inventory:
 #      oneview_host: "10.6.55.9"
 #      groups:
 #        - "esx_hosts"
+#      ov_hardware: "rh-bctl-4-gen9.hpintelco.org"
+#      ov_hostname: "rh-bctl-4-gen9"
+#      server_hardware_type_name: "DL380 Gen9"
     - name: rh-bctl-5-gen10
       ilo_ip:  "10.6.55.205"
       host_ip: "10.6.54.205"
@@ -352,6 +364,9 @@ bcl_inventory:
       groups:
         - "uc1_targets"
         - "uc3_targets"
+      ov_hardware: "rh-bctl-5-gen10.hpintelco.org"
+      ov_hostname: "rh-bctl-5-gen10"
+      server_hardware_type_name: "DL380 Gen10"
     - name:  "vcenter"
       host_ip: '10.6.55.10'
       groups: []
