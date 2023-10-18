@@ -414,7 +414,9 @@ uc3firmwareupdate_workflowtemplate:
   description: "check firmware status, apply updates and check firmware compliance"
   organization: "{{ organization_name }}"
   inventory:    "{{ bcl_inventory.name }}"
-  # extravars: {}
+  extravars: 
+    # not needed when this is part of hostdefinition within inventory.
+    oneview_host: "10.6.55.9"
 
 uc3updateesxi_workflowtemplate:
   name: "UC3 - update ESXi"
@@ -426,6 +428,8 @@ uc3updateesxi_workflowtemplate:
     my_vmware_cluster_name: bcl-cluster
     #my_esxi_package: "ESXi-7.0U2a-17867351-standard"
     my_esxi_package: "ESXi-7.0U3n-21930508-standard"
+    # not needed when this is part of hostdefinition within inventory.
+    oneview_host: "10.6.55.9"
 
 uc3firmwareupdate_jobtemplates:
   - name:         "uc3 Check Firmware compliance via API calls"
@@ -454,6 +458,8 @@ uc3firmwareupdate_jobtemplates:
     playbook:     "1b_oneview_apply_spp.yml"
     credentials:  
       - "{{ oneview_credential.name }}"
+##      - "{{ esximachine_credential.name }}"
+      - "{{ vcenter_credential.name }}"
     become: true
     ee_name: "{{ bclov_ee.name }}"
     verbosity:    0
