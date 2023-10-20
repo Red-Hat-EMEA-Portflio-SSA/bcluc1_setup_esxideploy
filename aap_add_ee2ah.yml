@@ -1,0 +1,78 @@
+---
+- name: Set up my own inventory first
+  gather_facts: false
+  hosts:
+    - localhost
+
+  tasks:
+    - name: Setup local Inventory
+      ansible.builtin.include_role:
+        name: portfoliossa.bcl.cmdline_inventory
+      vars:
+        inventory_hosts: "{{ (lookup('ansible.builtin.vars', item + '_inventory')).hosts }}"
+        inventory_groups: "{{ (lookup('ansible.builtin.vars', item + '_inventory')).groups }}"
+      loop: "{{ inventories2create }}"
+
+- name: Set up a self syncing EE in private automation hub
+  gather_facts: false
+  hosts: privhub
+
+  tasks:
+    - name: Add remote registry with authentication
+      infra.ah_configuration.ah_ee_registry:
+        name: "{{ (lookup('ansible.builtin.vars', item + '_ahregistry')).name }}"
+        state: present
+        url: "{{ (lookup('ansible.builtin.vars', item + '_ahregistry')).url }}"
+        username: "{{ (lookup('ansible.builtin.vars', item + '_ahregistry')).username }}"
+        password: "{{ (lookup('ansible.builtin.vars', item + '_ahregistry')).password }}"
+        ah_host: "{{ automationhub_host }}"
+        ah_username: "{{ automationhub_username }}"
+        ah_password: "{{ automationhub_password }}"
+        validate_certs: false
+      delegate_to: localhost
+      loop: "{{ ahregistrys2create }}"
+      when:
+      - not remove | default ('false') | bool
+
+    - name: Add remote repository from remote registry
+      infra.ah_configuration.ah_ee_repository:
+        name: "{{ (lookup('ansible.builtin.vars', item + '_ahrepo')).name }}"
+        upstream_name: "{{ (lookup('ansible.builtin.vars', item + '_ahrepo')).upstream_name }}"
+        registry: "{{ (lookup('ansible.builtin.vars', item + '_ahrepo')).registry }}"
+        include_tags: "{{ (lookup('ansible.builtin.vars', item + '_ahrepo')).include_tags }}"
+        state: present
+        ah_host: "{{ automationhub_host }}"
+        ah_username: "{{ automationhub_username }}"
+        ah_password: "{{ automationhub_password }}"
+        validate_certs: false
+      delegate_to: localhost
+      loop: "{{ ahrepos2create }}"
+      when:
+      - not remove | default ('false') | bool
+
+    - name: Remove remote repository
+      infra.ah_configuration.ah_ee_repository:
+        name: "{{ (lookup('ansible.builtin.vars', item + '_ahrepo')).name }}"
+        upstream_name: "{{ (lookup('ansible.builtin.vars', item + '_ahrepo')).upstream_name }}"
+        state: absent
+        ah_host: "{{ automationhub_host }}"
+        ah_username: "{{ automationhub_username }}"
+        ah_password: "{{ automationhub_password }}"
+        validate_certs: false
+      delegate_to: localhost
+      loop: "{{ ahrepos2create }}"
+      when:
+      - remove | default ('false') | bool
+
+    - name: Remove remote registry 
+      infra.ah_configuration.ah_ee_registry:
+        name: "{{ (lookup('ansible.builtin.vars', item + '_ahregistry')).name }}"
+        state: absent
+        ah_host: "{{ automationhub_host }}"
+        ah_username: "{{ automationhub_username }}"
+        ah_password: "{{ automationhub_password }}"
+        validate_certs: false
+      delegate_to: localhost
+      loop: "{{ ahregistrys2create }}"
+      when:
+      - remove | default ('false') | bool

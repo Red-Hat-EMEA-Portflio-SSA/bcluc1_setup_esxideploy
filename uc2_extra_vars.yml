@@ -1,4 +1,3 @@
-
 # there is an issue with fqdn at the point dns is not jet working...
 # if bastion is done first this should not be an issue
 # on the other hand: certs should refere to fqdn not ip addresses...
@@ -8,6 +7,7 @@ controller_username: "{{ vault_controller_username }}"
 controller_password: "{{ vault_controller_password }}"
 automationhub_host: "aap-privhub.bcl.redhat.hpecic.com"
 #automationhub_host: "10.6.55.3"
+automationhub_username: "{{ vault_controller_username }}"
 automationhub_password: "{{ vault_controller_password }}"
 
 organization_name: "BCL Organization"
@@ -22,6 +22,26 @@ ogranization_repository_credentials:
 # Automation Hub Published Repository      Ansible Galaxy/Automation Hub API Token
 # Automation Hub RH Certified Repository   Ansible Galaxy/Automation Hub API Token
 
+# ee registry creation in automation hub
+ahregistrys2create: 
+  - quayio
+
+quayio_ahregistry:
+  name: "quayio"
+  url: "https://quay.io/"
+  username: "{{ vault_quayio_username }}"
+  password: "{{ vault_quayio_password }}"
+
+ahrepos2create:
+  - bclov
+
+bclov_ahrepo:
+  name: bcl-ov_autoupdate
+  upstream_name: "mschreie/bcl-ov"
+  registry: "{{ quayio_ahregistry.name }}"
+  include_tags:
+    - latest
+
 # ee creation
 ees2create: 
   - bclov
@@ -30,7 +50,7 @@ bclov_ee:
    name: "BCL OV Execution Environment"
    description: "EE for BCL with OneView and VMware enabled" 
    organization: "{{ organization_name }}"
-   image: "{{ automationhub_host }}/bcl-ov:latest"
+   image: "{{ automationhub_host }}/{{ bclov_ahrepo.name }}:latest"
    credential: "private automation hub registry"
    pull: "always"
 
