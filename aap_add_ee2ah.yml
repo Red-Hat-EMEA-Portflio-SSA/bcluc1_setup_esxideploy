@@ -50,6 +50,20 @@
       when:
       - not remove | default ('false') | bool
 
+    - name: Sync ee-supported-rhel8 repository and wait up to 300 seconds
+      infra.ah_configuration.ah_ee_repository_sync:
+        name: "{{ (lookup('ansible.builtin.vars', item + '_ahrepo')).name }}"
+        wait: true
+        ah_host: "{{ automationhub_host }}"
+        ah_username: "{{ automationhub_username }}"
+        ah_password: "{{ automationhub_password }}"
+        validate_certs: false
+      timeout: 300
+      delegate_to: localhost
+      loop: "{{ ahrepos2create }}"
+      when:
+      - not remove | default ('false') | bool
+
     - name: Remove remote repository
       infra.ah_configuration.ah_ee_repository:
         name: "{{ (lookup('ansible.builtin.vars', item + '_ahrepo')).name }}"
